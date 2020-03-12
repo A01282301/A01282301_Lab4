@@ -4,15 +4,12 @@ var inputBox            = document.getElementById("inputvalue");
 var operationHistoryBox = document.getElementById("logInformation");
 var resultBox           = document.getElementById("resultValue");
 var resetButton         = document.getElementsByClassName("resetButton");
-
+var cleanvalue          = "History was cleared";
 //Variable declaration
 var result = 0;
 var operation = "";
+
 var dataStored = "";
-
-
-
-
 function AddOperator(inputdata){
   if(dataStored == inputdata){
     console.log("repeated operator");
@@ -37,27 +34,32 @@ function AddOperator(inputdata){
   }
 };
 
-
 function calculate(){
-  let previousResult = result
-  result = eval(result + dataStored + inputBox.value);
+  if(operationHistoryBox.value == cleanvalue){
+    console.log("No Operations were provided");
+  }else{
+  operation = operation + dataStored + inputBox.value;
+  console.log(operation);
+  console.log(eval(operation));
+  result = eval(operation);
   resultBox.value = result;
-  operationHistoryBox.value = operationHistoryBox.value + "\n" + previousResult + dataStored + inputBox.value + '=' + result;
+  operationHistoryBox.value = operationHistoryBox.value + "\n" + operation + '=' + result;
   dataStored = "";
-  clear(false);
-  resultBox.value = "";
-  result = 0;
-  operation = "";
+  clear(true);
+  }
 };
 
-
-function clear(all){
+function clear(cleanDataBuffer){
     inputBox.value = "";
-    if(all == true){
-      result = "";
-      resultBox.value = "";
-      operation = "";
+    if(cleanDataBuffer == true){
       dataStored = "";
-      operationHistoryBox.value = "History was cleared";
+      resultBox.value = "";
+      result = "";
+      operation = "";
     }
 };
+
+function clean(){
+    clear(true);
+    operationHistoryBox.value = cleanvalue;
+}
