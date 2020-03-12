@@ -1,62 +1,63 @@
-var inputBox            = document.getElementById("inputvalue").value;
-var operationHistoryBox = document.getElementById("logInformation").value;
-var resultBox           = document.getElementById("resultValue").value;
-var resetButton         = document.getElementsByClassName("resetButton").value;
+
+//Mapping inputs and outputs
+var inputBox            = document.getElementById("inputvalue");
+var operationHistoryBox = document.getElementById("logInformation");
+var resultBox           = document.getElementById("resultValue");
+var resetButton         = document.getElementsByClassName("resetButton");
 
 //Variable declaration
 var result = 0;
 var operation = "";
 var dataStored = "";
 
-//Mapping inputs and outputs
 
 
 
 function AddOperator(inputdata){
   if(dataStored == inputdata){
     console.log("repeated operator");
-  }
+  }else{
 
   if(dataStored == ""){
-    result = inputBox;
-    resultBox = result;
+    result = inputBox.value;
+    resultBox.value = result;
     dataStored = inputdata;
     operation = operation + result;
   }else{
-    let data = inputBox
-    operation = operation + dataStored + inputBox;
+    let data = inputBox.value
+    operation = operation + dataStored + inputBox.value;
     console.log(operation);
-    result = eval(result + dataStored + inputBox);
+    result = eval(result + dataStored + inputBox.value);
     console.log(result);
-    resultBox = result;
+    resultBox.value = result;
     dataStored = inputdata;
     clear(false);
-
   }
   clear(false);
+  }
 };
 
 
 function calculate(){
-
-  result = eval(result + dataStored + inputBox);
-  resultBox= result;
-  operationHistoryBox = op + '=' + result;
+  let previousResult = result
+  result = eval(result + dataStored + inputBox.value);
+  resultBox.value = result;
+  operationHistoryBox.value = operationHistoryBox.value + "\n" + previousResult + dataStored + inputBox.value + '=' + result;
   dataStored = "";
   clear(false);
-  resultBox= "";
+  resultBox.value = "";
   result = 0;
   operation = "";
-
 };
 
 
 function clear(all){
-    inputBox = "";
+    inputBox.value = "";
     if(all == true){
       result = "";
-      resultBox = "";
+      resultBox.value = "";
       operation = "";
       dataStored = "";
+      operationHistoryBox.value = "History was cleared";
     }
 };
