@@ -35,7 +35,7 @@ function AddOperator(inputdata){
 };
 
 function calculate(){
-  if(operationHistoryBox.value == cleanvalue){
+  if(operation == ""){
     console.log("No Operations were provided");
   }else{
   operation = operation + dataStored + inputBox.value;
